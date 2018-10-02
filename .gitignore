@@ -70,5 +70,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+persistence.xml
 # End of https://www.gitignore.io/api/macos,maven,windows,netbeans
 /nbproject/
