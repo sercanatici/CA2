@@ -83,30 +83,15 @@ public class PersonMapper {
     public List<PersonDTO> findPersonFromPhoneNumber(int number) {
         EntityManager em = getEntityManager();
         try {
-            TypedQuery<PersonDTO> query = em.createQuery("select new dto.PersonDTO(c1.id, c1.email, c1.firstName, c1.lastName,"
-                    + " c1.hobbys,"
-                    + " c3.number, c3.description,"
-                    + " c4.street, c4.additionalInfo,"
-                    + " c5.zip, c5.city) from Person c1"
-                    + " inner join c1.phones as c3"
-                    + " inner join c1.address as c4"
-                    + " inner join c4.cityinfo as c5"
-                    + " where c3.number = :phone", PersonDTO.class);
+            TypedQuery<PersonDTO> query = em.createQuery("select new dto.PersonDTO(c1, c2.number, c2.description, c3.street, c3.additionalInfo, c4.zip, c4.city) "
+                    + "from Person c1 inner join c1.phones as c2 "
+                    + "inner join c1.address as c3 "
+                    + "inner join c3.cityinfo as c4 "
+                    + "where c2.number = :phone", PersonDTO.class);
             query.setParameter("phone", number);
             List<PersonDTO> list = query.getResultList();
             return list;
         } finally {
-            em.close();
-        }
-    }
-    
-    public PersonDTO findPersonFromPhoneNumber2(int number){
-        EntityManager em = getEntityManager();
-        try{
-            TypedQuery<PersonDTO> query = em.createQuery("select new dto.PersonDTO(c1.id, c1.email, c1.firstName, c1.lastName, c2.number) from Person c1 inner join c1.phones as c2 where c2.number = :number", PersonDTO.class);
-            query.setParameter("number", number);
-            return (PersonDTO) query.getSingleResult();
-        } finally{
             em.close();
         }
     }
@@ -140,12 +125,12 @@ public class PersonMapper {
         }
     }
     
-    public Integer getCountOfPeopleWithGivenHobby(String hobbyname){
+    public Long getCountOfPeopleWithGivenHobby(String hobbyname){
         EntityManager em = getEntityManager();
         try{
-            Query query = em.createQuery("Select count(c) from Person c where c.hobbys.name = :hobby");
+            Query query = em.createQuery("Select count(c) from Person c inner join c.hobbys as c1 where c1.name = :hobby");
             query.setParameter("hobby", hobbyname);
-            return (Integer) query.getSingleResult();
+            return (Long) query.getSingleResult();
         }finally{
             em.close();
         }
