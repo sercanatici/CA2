@@ -100,17 +100,6 @@ public class PersonMapper {
         }
     }
     
-    public PersonDTO findPersonFromPhoneNumber2(int number){
-        EntityManager em = getEntityManager();
-        try{
-            TypedQuery<PersonDTO> query = em.createQuery("select new dto.PersonDTO(c1.id, c1.email, c1.firstName, c1.lastName, c2.number) from Person c1 inner join c1.phones as c2 where c2.number = :number", PersonDTO.class);
-            query.setParameter("number", number);
-            return (PersonDTO) query.getSingleResult();
-        } finally{
-            em.close();
-        }
-    }
-    
     public List<PersonDTO> findPersonsWithGivenHobby(String hobbyname){
         EntityManager em = getEntityManager();
         try{
