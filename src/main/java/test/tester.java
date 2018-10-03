@@ -36,8 +36,6 @@ public class tester {
         ArrayList<Hobby> hlist = new ArrayList();
         hlist.add(new Hobby("Sailing", "Sailing"));
         hlist.add(new Hobby("Fishing", "Fishing"));
-        
-        
         pm.createFullPerson(p, a, plist, hlist);
         */
     
