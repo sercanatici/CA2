@@ -8,6 +8,7 @@ package rest;
 import com.google.gson.Gson;
 import dto.PersonDTO;
 import entity.Person;
+import java.util.List;
 import javax.persistence.Persistence;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -37,11 +38,12 @@ public class PersonREST {
     public PersonREST() {
     }
     
+    @Path("{number}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPersonFromPhoneNumber(@PathParam("number") int number) {
         
-        PersonDTO person = m.findPersonFromPhoneNumber(number);
+        List<PersonDTO> person = m.findPersonFromPhoneNumber(number);
         
         return Response.ok(gson.toJson(person)).build();
     }

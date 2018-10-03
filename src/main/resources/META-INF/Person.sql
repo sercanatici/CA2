@@ -1,1 +1,0 @@
-INSERT INTO Person (EMAIL, FIRSTNAME, LASTNAME) VALUES ('Tobbejj@hotmail.com', 'Tobias', 'Jensen');

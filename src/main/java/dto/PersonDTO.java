@@ -5,18 +5,23 @@
  */
 package dto;
 
+import entity.Hobby;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author sidad
  */
 public class PersonDTO {
-    public int id;
+    public Long id;
     public String email;
     public String firstName;
     public String lastName;
     
     public String hobbyName;
     public String hobbyDescription;
+    public List<Hobby> harray;
     
     public int phoneNumber;
     public String phoneDescription;
@@ -31,13 +36,12 @@ public class PersonDTO {
         
     }
     
-    public PersonDTO(int id, String email, String firstName, String lastName, String hobbyName, String hobbyDescription, int phoneNumber, String phoneDescription, String street, String additionalInfo, int zipCode, String city) {
+    public PersonDTO(Long id, String email, String firstName, String lastName, List<Hobby> harray, int phoneNumber, String phoneDescription, String street, String additionalInfo, int zipCode, String city) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.hobbyName = hobbyName;
-        this.hobbyDescription = hobbyDescription;
+        this.harray = harray;
         this.phoneNumber = phoneNumber;
         this.phoneDescription = phoneDescription;
         this.street = street;
@@ -46,7 +50,7 @@ public class PersonDTO {
         this.city = city;
     }
 
-    public PersonDTO(int id, String email, String firstName, String lastName, int phoneNumber) {
+    public PersonDTO(Long id, String email, String firstName, String lastName, int phoneNumber) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
