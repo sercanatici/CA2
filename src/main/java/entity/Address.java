@@ -41,6 +41,12 @@ public class Address implements Serializable {
         this.street = street;
         this.additionalInfo = additionalInfo;
     }
+    
+    public Address(String street, String additionalInfo, CityInfo cityinfo){
+        this.street = street;
+        this.additionalInfo = additionalInfo;
+        this.cityinfo = cityinfo;
+    }
 
     public Long getId() {
         return id;
@@ -64,6 +70,22 @@ public class Address implements Serializable {
 
     public void setAdditionalInfo(String additionalInfo) {
         this.additionalInfo = additionalInfo;
+    }
+
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
+    }
+
+    public CityInfo getCityinfo() {
+        return cityinfo;
+    }
+
+    public void setCityinfo(CityInfo cityinfo) {
+        this.cityinfo = cityinfo;
     }
 
     @Override

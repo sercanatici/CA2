@@ -1,8 +1,12 @@
 package mapper;
 
 import dto.PersonDTO;
+import entity.Address;
 import entity.CityInfo;
+import entity.Hobby;
 import entity.Person;
+import entity.Phone;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -20,6 +24,62 @@ public class PersonMapper {
     EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
+    
+    public Person createPerson(Person p){
+        EntityManager em = getEntityManager();
+        try{
+            em.getTransaction().begin();
+            em.persist(p);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return p;
+    }
+    
+    public Person createPersonWithAddress(Person p, Address a){
+        EntityManager em = getEntityManager();
+        try{
+            a.setCityinfo(a.getCityinfo());
+            p.setAddress(a);
+            em.getTransaction().begin();
+            em.persist(p);
+            em.getTransaction().commit();
+        }finally{
+            em.close();
+        }
+        return p;
+    }
+    
+    public Person createFullPerson(Person p, Address a, ArrayList<Phone> plist, ArrayList<Hobby> hlist){
+        EntityManager em = getEntityManager();
+        try{
+            a.setCityinfo(a.getCityinfo());
+            p.setAddress(a);
+            p.setHobbys(hlist);
+            p.setPhones(plist);
+            
+            em.getTransaction().begin();
+            em.persist(p);
+            em.getTransaction().commit();
+        }finally{
+            em.close();
+        }
+        return p;
+    }
+    
+    public CityInfo getCityInfoByZip(int zip){
+        EntityManager em = getEntityManager();
+        try{
+            Query query = em.createQuery("Select c from CityInfo c where c.zip = :zip ");
+            query.setParameter("zip", zip);
+            CityInfo cf = (CityInfo) query.getSingleResult();
+            return cf;
+        }finally{
+            em.close();
+        }
+    }
+            
 
     public PersonDTO findPersonFromPhoneNumber(int number) {
         EntityManager em = getEntityManager();
@@ -90,4 +150,5 @@ public class PersonMapper {
             em.close();
         }
     }
+    
 }

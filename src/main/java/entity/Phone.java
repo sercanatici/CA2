@@ -29,17 +29,15 @@ public class Phone implements Serializable {
     private String description;
     
     @ManyToOne
-private Person person;
+    private Person person;
 
     public Phone() {
     }
 
-    
-    
-    
-    public Phone(int number, String description) {
+    public Phone(int number, String description, Person person){
         this.number = number;
         this.description = description;
+        this.person = person;
     }
 
     public int getNumber() {
@@ -63,6 +61,16 @@ private Person person;
         return id;
     }
 
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    
+    
     @Override
     public String toString() {
         return "Phone{" + "id=" + id + ", number=" + number + ", description=" + description + '}';

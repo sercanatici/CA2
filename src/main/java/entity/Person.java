@@ -7,6 +7,7 @@ package entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,18 +30,28 @@ public class Person implements Serializable {
     private String email;
     private String firstName;
     private String lastName;
-    @OneToMany(mappedBy = "person")
+    
+    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
     private List<Phone> phones;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Address address;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Hobby> hobbys;
 
     public Person(){
         
     }
 
+    public Person(String email, String firstName, String lastName){
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    
+    
+    
+    
     public Person(Long id, String email, String firstName, String lastName) {
         this.id = id;
         this.email = email;
@@ -81,6 +92,32 @@ public class Person implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<Hobby> getHobbys() {
+        return hobbys;
+    }
+
+    public void setHobbys(List<Hobby> hobbys) {
+        this.hobbys = hobbys;
+    }
+    
+    
 
     @Override
     public String toString() {
