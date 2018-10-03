@@ -41,13 +41,11 @@ public class tester {
         hlist.add(new Hobby("Fishing", "Fishing"));
         pm.createFullPerson(p, a, plist, hlist);
         
-    
         
-        Long count = pm.getCountOfPeopleWithGivenHobby("Fishing");
-        System.out.println(count);
-        List<PersonDTO> person = pm.findPersonsWithGivenCity("Kongens Lyngby");
-        System.out.println(person.get(0).toString());
-       
+        Person newPerson = new Person("New", "New", "New");
+        pm.updatePerson(p, newPerson);
+        
+        
     }
     
 }

@@ -68,6 +68,47 @@ public class PersonMapper {
         return p;
     }
     
+    public Person findPersonById(int id){
+        EntityManager em = getEntityManager();
+        try{
+            Query query = em.createQuery("Select c from Person c where c.id = :id");
+            query.setParameter("id", id);
+            Person p = (Person) query.getSingleResult();
+            return p;
+        }finally{
+            em.close();
+        }
+    }
+    
+    public Person deletePersonById(Person p){
+        EntityManager em = getEntityManager();
+        try{
+            em.getTransaction().begin();
+            em.remove(em.contains(p) ? p : em.merge(p));
+            em.getTransaction().commit();
+            return p;
+      
+        }finally{
+            em.close();
+        }
+    }
+    
+    public Person updatePerson(Person personOriginal, Person personNew){
+        EntityManager em = getEntityManager();
+        try{
+            em.getTransaction().begin();
+            personOriginal.setEmail(personNew.getEmail());
+            personOriginal.setFirstName(personNew.getFirstName());
+            personOriginal.setLastName(personNew.getLastName());
+            em.merge(personOriginal);
+            em.getTransaction().commit();
+            return personNew;
+        }finally{
+            em.close();
+        }
+    }
+            
+    
     public CityInfo getCityInfoByZip(int zip){
         EntityManager em = getEntityManager();
         try{
