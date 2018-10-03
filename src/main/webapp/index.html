@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Exam Preparation</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- CDN Polyfills which should allow you to use fetch (and promises) from IE and older browsers -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
     </head>
-    <body>
-        <h1>Hello World!</h1>
+    <body class="container">
+        <H2>Data Generator</h2>
+
+        <form name="myForm" action="/action_page.php"
+              onsubmit="return validateForm()" method="post">
+            Search: <input type="text" name="fname" required>
+            <input type="submit" value="Submit">
+        </form>
+
     </body>
+    <script src="app.js"></script>
 </html>
