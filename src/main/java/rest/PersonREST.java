@@ -58,4 +58,14 @@ public class PersonREST {
         
         return Response.ok(gson.toJson(ziplist)).build();
     }
+
+    @Path("{hobby}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPersonFromPhoneNumber(@PathParam("hobby") String hobby) {
+        
+        List<PersonDTO> person = m.findPersonsWithGivenHobby(hobby);
+        
+        return Response.ok(gson.toJson(person)).build();
+    }
 }

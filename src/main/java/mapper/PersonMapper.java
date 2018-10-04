@@ -142,7 +142,7 @@ public class PersonMapper {
         EntityManager em = getEntityManager();
         try{
             TypedQuery<PersonDTO> query = em.createQuery("select new dto.PersonDTO(c1.id, c1.email, c1.firstName, c1.lastName)"
-                    + " from Person c1 inner join c1.hobbys as c2"
+                    + " from Person c1 inner join c1.hobby as c2"
                     + " where c2.name = :hobby", PersonDTO.class);
             query.setParameter("hobby", hobbyname);
             List<PersonDTO> list = query.getResultList();
