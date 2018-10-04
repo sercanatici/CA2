@@ -5,6 +5,7 @@
  */
 package test;
 
+import dto.CityInfoDTO;
 import dto.PersonDTO;
 import entity.Address;
 import entity.CityInfo;
@@ -41,10 +42,14 @@ public class tester {
         hlist.add(new Hobby("Fishing", "Fishing"));
         pm.createFullPerson(p, a, plist, hlist);
         
-        
+        /*
         Person newPerson = new Person("New", "New", "New");
         pm.updatePerson(p, newPerson);
-        
+        */
+        List<CityInfoDTO> list = pm.getAllZipCodes();
+        for(int i = 0; i < list.size(); i++){
+            System.out.println(list.get(i).toString());
+        }
         
     }
     

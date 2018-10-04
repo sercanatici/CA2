@@ -1,5 +1,6 @@
 package mapper;
 
+import dto.CityInfoDTO;
 import dto.PersonDTO;
 import entity.Address;
 import entity.CityInfo;
@@ -177,11 +178,11 @@ public class PersonMapper {
         }
     }
     
-    public List<CityInfo> getAllZipCodes(){
+    public List<CityInfoDTO> getAllZipCodes(){
         EntityManager em = getEntityManager();
         try{
-            Query query = em.createQuery("Select c.zip from CityInfo c");
-            List<CityInfo> list = query.getResultList();
+            TypedQuery<CityInfoDTO> query = em.createQuery("Select new dto.CityInfoDTO(c.city, c.zip) from CityInfo c", CityInfoDTO.class);
+            List<CityInfoDTO> list = query.getResultList();
             return list;
         }finally{
             em.close();
