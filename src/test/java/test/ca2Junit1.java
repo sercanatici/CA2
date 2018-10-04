@@ -18,21 +18,19 @@ import static org.junit.Assert.*;
  *
  * @author tobbe
  */
-public class ca2Junit {
-    
+public class ca2Junit1 {
+
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
     PersonMapper pm = new PersonMapper(emf);
-    
-    public ca2Junit() {
+
+    public ca2Junit1() {
     }
 
     @Test
-    public void createPerson(){
-        
+    public void createPerson() {
+
     }
-    
-    
-    
+
     @Test
     public void testGetALlZipCodes(){
         List<CityInfoDTO> zip = pm.getAllZipCodes();
