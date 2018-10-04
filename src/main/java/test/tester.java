@@ -46,7 +46,14 @@ public class tester {
         Person newPerson = new Person("New", "New", "New");
         pm.updatePerson(p, newPerson);
         */
+       
+        Person p1 = pm.findPersonById(1);
+        System.out.println(p1.toString());
+       
         
+                
+        
+      
         
     }
     

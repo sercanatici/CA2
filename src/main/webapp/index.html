@@ -23,7 +23,35 @@
                 <input id="value" type="text">
                 <input  class="btn btn-default" type="button" onclick="findPersonsWithHobby()" value="submit">
             
-               
+                <br>
+                <br>
+                Find Person by id:
+                <input id="findvalue" type="number">
+                <input  class="btn btn-default" type="button" onclick="findPerson()" value="submit">
+                <br>
+                <br>
+                <form id="createform" >
+                Create Person:
+                Firstname:
+                <input id="firstname" type="text" required>
+                Lastname:
+                <input id="lastname" type="text" required>
+                Email:
+                <input id="email" type="text" required>
+                <input  class="btn btn-default" id="create" type="button" value="submit">
+                </form>
+                <br>
+                <br>
+                Update Person:
+                <br>
+                <br>
+                Delete Person:
+                <form id="deleteForm" >
+                Delete Person:
+                Id:
+                <input id="id" type="number" required>
+                <input  class="btn btn-default" id="delete" type="button" value="submit">
+                </form>
             
         <table id="tbl" class="table">
             <thead id="thead">

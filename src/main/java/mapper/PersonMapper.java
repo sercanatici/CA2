@@ -69,19 +69,34 @@ public class PersonMapper {
         return p;
     }
 
-    public Person findPersonById(int id) {
+    public List<PersonDTO> findPersonDTOById(int id) {
         EntityManager em = getEntityManager();
         try {
-            Query query = em.createQuery("Select c from Person c where c.id = :id");
+            TypedQuery<PersonDTO> query = em.createQuery("Select new dto.PersonDTO(c.id, c.firstName, c.lastName, c.email) from Person c where c.id = :id", PersonDTO.class);
             query.setParameter("id", id);
-            Person p = (Person) query.getSingleResult();
+            List<PersonDTO> p = query.getResultList();
             return p;
         } finally {
             em.close();
         }
     }
+        
+    public Person findPersonById(int id){
+        EntityManager em = getEntityManager();
+        try{
+            Query query = em.createQuery("Select c from Person c where c.id = :id");
+            query.setParameter("id", id);
+            Person p = (Person) query.getSingleResult();
+            return p;
+            
+            
+        }finally{
+            em.close();
+        }
+    }
+    
 
-    public Person deletePersonById(Person p) {
+    public Person deletePerson(Person p) {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
@@ -155,7 +170,7 @@ public class PersonMapper {
     public List<PersonDTO> findPersonsWithGivenHobby(String hobbyname) {
         EntityManager em = getEntityManager();
         try {
-            TypedQuery<PersonDTO> query = em.createQuery("select new dto.PersonDTO(c1.id, c1.email, c1.firstName, c1.lastName)"
+            TypedQuery<PersonDTO> query = em.createQuery("select new dto.PersonDTO(c1.id, c1.firstName, c1.lastName, c1.email)"
                     + " from Person c1 inner join c1.hobbys as c2"
                     + " where c2.name = :hobby", PersonDTO.class);
             query.setParameter("hobby", hobbyname);
