@@ -17,9 +17,16 @@
             Get all ZipCodes in Denmark: 
             <button class="btn btn-default" id="btnzip"> Get Zip Codes </button> 
       
+           
+            
+            Get all Persons with a given Hobby:
+                <input id="value" type="text">
+                <input  class="btn btn-default" type="button" onclick="findPersonsWithHobby()" value="submit">
+            
+               
+            
         <table id="tbl" class="table">
-            <thead>
-            <th>City</th><th>ZipCode</th>
+            <thead id="thead">
             </thead>
             <tbody id="tbody"></tbody>
             </table>

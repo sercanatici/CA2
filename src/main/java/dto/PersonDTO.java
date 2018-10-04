@@ -15,79 +15,76 @@ import java.util.List;
  * @author sidad
  */
 public class PersonDTO {
-    public Long id;
-    public String email;
-    public String firstName;
-    public String lastName;
+    public Long DTOid;
+    public String DTOemail;
+    public String DTOfirstName;
+    public String DTOlastName;
     
-    public String hobbyName;
-    public String hobbyDescription;
-    public List<HobbyDTO> harray = new ArrayList();
+    public String DTOhobbyName;
+    public String DTOhobbyDescription;
+    public List<HobbyDTO> DTOharray = new ArrayList();
     
-    public int phoneNumber;
-    public String phoneDescription;
+    public int DTOphoneNumber;
+    public String DTOphoneDescription;
     
-    public String street;
-    public String additionalInfo;
+    public String DTOstreet;
+    public String DTOadditionalInfo;
     
-    public int zipCode;
-    public String city;
+    public int DTOzipCode;
+    public String DTOcity;
 
     public PersonDTO(){
         
     }
 
     public PersonDTO(Long id, String email, String firstName, String lastName, String hobbyName, String hobbyDescription, int phoneNumber, String phoneDescription, String street, String additionalInfo, int zipCode, String city) {
-        this.id = id;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.hobbyName = hobbyName;
-        this.hobbyDescription = hobbyDescription;
-        this.phoneNumber = phoneNumber;
-        this.phoneDescription = phoneDescription;
-        this.street = street;
-        this.additionalInfo = additionalInfo;
-        this.zipCode = zipCode;
-        this.city = city;
+        this.DTOid = id;
+        this.DTOemail = email;
+        this.DTOfirstName = firstName;
+        this.DTOlastName = lastName;
+        this.DTOhobbyName = hobbyName;
+        this.DTOhobbyDescription = hobbyDescription;
+        this.DTOphoneNumber = phoneNumber;
+        this.DTOphoneDescription = phoneDescription;
+        this.DTOstreet = street;
+        this.DTOadditionalInfo = additionalInfo;
+        this.DTOzipCode = zipCode;
+        this.DTOcity = city;
     }
     
     public PersonDTO(Person p, int phoneNumber, String phoneDescription, String street, String additionalInfo, int zipCode, String city){
-        this.id = p.getId();
-        this.email = p.getEmail();
-        this.firstName = p.getFirstName();
-        this.lastName = p.getLastName();
+        this.DTOid = p.getId();
+        this.DTOemail = p.getEmail();
+        this.DTOfirstName = p.getFirstName();
+        this.DTOlastName = p.getLastName();
         for(int i = 0; i < p.getHobbys().size(); i++){
-            harray.add(new HobbyDTO(p.getHobbys().get(i).getName(), p.getHobbys().get(i).getDescription()));
+            DTOharray.add(new HobbyDTO(p.getHobbys().get(i).getName(), p.getHobbys().get(i).getDescription()));
         }
-        this.phoneNumber = phoneNumber;
-        this.phoneDescription = phoneDescription;
-        this.street = street;
-        this.additionalInfo = additionalInfo;
-        this.zipCode = zipCode;
-        this.city = city;
+        this.DTOphoneNumber = phoneNumber;
+        this.DTOphoneDescription = phoneDescription;
+        this.DTOstreet = street;
+        this.DTOadditionalInfo = additionalInfo;
+        this.DTOzipCode = zipCode;
+        this.DTOcity = city;
         
     }
     
     public PersonDTO(Long id, String email, String firstName, String lastName, int phoneNumber) {
-        this.id = id;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
+        this.DTOid = id;
+        this.DTOemail = email;
+        this.DTOfirstName = firstName;
+        this.DTOlastName = lastName;
+        this.DTOphoneNumber = phoneNumber;
     }
     
-    public PersonDTO(long id, String email, String firstName, String lastName){
-        this.id = id;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public PersonDTO(Long id, String email, String firstName, String lastName){
+        this.DTOid = id;
+        this.DTOemail = email;
+        this.DTOfirstName = firstName;
+        this.DTOlastName = lastName;
     }
 
-    @Override
-    public String toString() {
-        return "PersonDTO{" + "id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", hobbyName=" + hobbyName + ", hobbyDescription=" + hobbyDescription + ", harray=" + harray + ", phoneNumber=" + phoneNumber + ", phoneDescription=" + phoneDescription + ", street=" + street + ", additionalInfo=" + additionalInfo + ", zipCode=" + zipCode + ", city=" + city + '}';
-    }
+    
     
     
     

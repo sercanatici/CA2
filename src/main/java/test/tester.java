@@ -46,10 +46,7 @@ public class tester {
         Person newPerson = new Person("New", "New", "New");
         pm.updatePerson(p, newPerson);
         */
-        List<CityInfoDTO> list = pm.getAllZipCodes();
-        for(int i = 0; i < list.size(); i++){
-            System.out.println(list.get(i).toString());
-        }
+        
         
     }
     
