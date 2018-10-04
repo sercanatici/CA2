@@ -1,5 +1,5 @@
 function getZip() {
-    fetch("http://localhost:8084/mavenproject1/api/person/allzip")
+    fetch("http://localhost:8084/mavenproject1/api/options/zip/allzip")
             .then(res => handleHttpError(res))
             .then(data => {
                 document.getElementById("tbody").innerHTML = makeZipTable(data)
@@ -20,7 +20,7 @@ function getZip() {
 }
 
 function makeZipHeader() {
-    return stringReturn = "<th>City</th><th>ZipCode</th>";
+    return stringReturn = "<tr><th>City</th><th>ZipCode</th><tr>";
 }
 
 
@@ -34,7 +34,7 @@ function makeZipTable(data) {
 
 function findPersonsWithHobby() {
     var hobby = document.getElementById("value").value;
-    fetch("http://localhost:8084/mavenproject1/api/person/hobby/" + hobby)
+    fetch("http://localhost:8084/mavenproject1/api/options/person/hobby/" + hobby)
             .then(res => handleHttpError(res))
             .then(data => {
                 document.getElementById("tbody").innerHTML = makeHobbyTable(data);
@@ -55,7 +55,7 @@ function findPersonsWithHobby() {
 }
 
 function makeHobbyHeader() {
-    return stringReturn = "<th>Id</th><th>Firstname</th><th>Lastname</th><th>Email</th></tr>";
+    return stringReturn = "<tr><th>Id</th><th>Firstname</th><th>Lastname</th><th>Email</th></tr>";
 }
 
 function makeHobbyTable(data) {
@@ -66,9 +66,45 @@ function makeHobbyTable(data) {
     return stringReturn;
 }
 
+function findAllPeople(){
+    fetch("http://localhost:8084/mavenproject1/api/options/person/all")
+    .then(res => handleHttpError(res))
+            .then(data => {
+                document.getElementById("tbody").innerHTML = makeAllPersonTable(data);
+                document.getElementById("thead").innerHTML = makeAllPersonHeader();
+            })
+            .catch(err => {
+                if (err.httpError) {
+                    err.fullError.then(eJson => {
+                        console.log("Error: " + eJson.error);
+                        document.getElementById("tbody").innerHTML = eJson.error;
+                    });
+                } else {
+                    console.log("Netværksfejl");
+                }
+            }
+
+            );
+}
+
+function makeAllPersonHeaer(){
+    return stringReturn = "<tr><th>Id</th><th>Firstname</th><th>Lastname</th><th>Email</th></tr>";
+}
+
+function makeAllPersonTable(data){
+    let stringReturn = "";
+    for (let i = 0; i < data.length; i++) {
+        stringReturn += "<tr><td>" + data[i].DTOid + "</td><td>" + data[i].DTOfirstName + "</td><td>" + data[i].DTOlastName + "</td><td>" + data[i].DTOemail + "</td></tr>";
+    }
+    return stringReturn;
+}
+
+
+
+
 function findPerson() {
     var id = document.getElementById("findvalue").value;
-    fetch("http://localhost:8084/mavenproject1/api/person/" + id)
+    fetch("http://localhost:8084/mavenproject1/api/options/person/" + id)
             .then(res => handleHttpError(res))
             .then(data => {
                 document.getElementById("tbody").innerHTML = makePersonTable(data);
@@ -109,7 +145,7 @@ function createPerson(){
     
     var data = JSON.stringify(newPerson);
     console.log(data);
-   fetch("http://localhost:8084/mavenproject1/api/person/"+firstname+"/"+lastname+"/"+email, {
+   fetch("http://localhost:8084/mavenproject1/api/options/person/"+firstname+"/"+lastname+"/"+email, {
        method : "POST",
        headers : {
            "Accept" : "application/json",
@@ -149,14 +185,12 @@ function createdPerson(data){
 
 function deletePerson(){
     var id = document.getElementById("id").value;
-    fetch("http://localhost:8084/mavenproject1/api/person/delete/"+ id, {
+    fetch("http://localhost:8084/mavenproject1/api/options/person/delete/"+ id, {
        method : "DELETE"
    })
             .then(res => httpHandlerError(res))
             .then(data => {
-                console.log(data);
-                document.getElementById("tbody").innerHTML = deletedPerson(data);
-                document.getElementById("thead").innerHTML = deletePersonHeader();
+                console.log(data + "Deleted Successfully");
             })
             .catch(err => {
                 if (err.httpError) {
@@ -171,15 +205,6 @@ function deletePerson(){
 
             );
 }
-
-function deletePersonHeader(){
-    return "<tr><th>Id</th><th>Firstname</th><th>Lastname</th><th>Email</th></tr>";
-}
-
-function deletedPerson(data){
-    return stringReturn = "<tr><td>"+data.id+"</td><td>"+data.firstName+"</td><td>"+data.lastName+"</td><td>"+data.email+"</td></tr>";
-}
-
 
 
 function handleHttpError(res) {

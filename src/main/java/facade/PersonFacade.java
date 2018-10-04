@@ -1,4 +1,4 @@
-package mapper;
+package facade;
 
 import dto.CityInfoDTO;
 import dto.PersonDTO;
@@ -14,11 +14,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-public class PersonMapper {
+public class PersonFacade {
 
     EntityManagerFactory emf;
 
-    public PersonMapper(EntityManagerFactory emf) {
+    public PersonFacade(EntityManagerFactory emf) {
         this.emf = emf;
     }
 
@@ -89,6 +89,18 @@ public class PersonMapper {
             Person p = (Person) query.getSingleResult();
             return p;
             
+            
+        }finally{
+            em.close();
+        }
+    }
+    
+    public List<PersonDTO> findAllPeople(){
+        EntityManager em = getEntityManager();
+        try{
+            TypedQuery<PersonDTO> query = em.createQuery("Select new dto.PersonDTO(c.id, c.firstName, c.lastName, c.email) from Person c", PersonDTO.class);
+            List<PersonDTO> list = query.getResultList();
+            return list;
             
         }finally{
             em.close();

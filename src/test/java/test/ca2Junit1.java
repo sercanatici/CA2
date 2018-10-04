@@ -10,7 +10,7 @@ import entity.CityInfo;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import mapper.PersonMapper;
+import facade.PersonFacade;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 public class ca2Junit1 {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
-    PersonMapper pm = new PersonMapper(emf);
+    PersonFacade pm = new PersonFacade(emf);
 
     public ca2Junit1() {
     }

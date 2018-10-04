@@ -25,12 +25,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import mapper.PersonMapper;
+import facade.PersonFacade;
 
-@Path("person")
+@Path("options")
 public class PersonREST {
 
-    PersonMapper m = new PersonMapper(Persistence.createEntityManagerFactory("pu"));
+    PersonFacade m = new PersonFacade(Persistence.createEntityManagerFactory("pu"));
     Gson gson = new Gson();
     
     @Context
@@ -43,7 +43,18 @@ public class PersonREST {
     public PersonREST() {
     }
     
-    @Path("{id}")
+    @Path("person/all")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllPeople(){
+        List<PersonDTO> p = m.findAllPeople();
+        
+        return Response.ok(gson.toJson(p)).build();
+    }
+    
+    
+    
+    @Path("person/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPersonById(@PathParam("id") int id){
@@ -62,7 +73,7 @@ public class PersonREST {
         return Response.ok(gson.toJson(person)).build();
     }
     
-    @Path("allzip")
+    @Path("zip/allzip")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllZipCodes(){
@@ -71,7 +82,7 @@ public class PersonREST {
         return Response.ok(gson.toJson(ziplist)).build();
     }
     
-    @Path("hobby/{hobby}")
+    @Path("person/hobby/{hobby}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPersonAndCountWithGivenHobby(@PathParam("hobby") String hobby){
@@ -80,7 +91,7 @@ public class PersonREST {
         return Response.ok(gson.toJson(person)).build();
     }
     
-    @Path("{firstname}/{lastname}/{email}")
+    @Path("person/{firstname}/{lastname}/{email}")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response createPerson(@PathParam("firstname") String firstname, @PathParam("lastname") String lastname, @PathParam("email") String email){
@@ -90,7 +101,7 @@ public class PersonREST {
     }
 
     
-    @Path("delete/{number}")
+    @Path("person/delete/{number}")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Response deletePerson(@PathParam("number") int id){
