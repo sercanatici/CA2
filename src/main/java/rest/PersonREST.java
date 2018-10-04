@@ -58,4 +58,15 @@ public class PersonREST {
         
         return Response.ok(gson.toJson(ziplist)).build();
     }
+    
+    @Path("hobby/{hobby}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPersonAndCountWithGivenHobby(@PathParam("hobby") String hobby){
+        List<PersonDTO> person = m.findPersonsWithGivenHobby(hobby);
+        Long count = m.getCountOfPeopleWithGivenHobby(hobby);
+        
+        return Response.ok(gson.toJson(person)).build();
+    }
+
 }

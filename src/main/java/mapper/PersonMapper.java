@@ -138,20 +138,6 @@ public class PersonMapper {
         }
     }
     
-    public List<PersonDTO> findPersonsWithGivenHobby(String hobbyname){
-        EntityManager em = getEntityManager();
-        try{
-            TypedQuery<PersonDTO> query = em.createQuery("select new dto.PersonDTO(c1.id, c1.email, c1.firstName, c1.lastName)"
-                    + " from Person c1 inner join c1.hobbys as c2"
-                    + " where c2.name = :hobby", PersonDTO.class);
-            query.setParameter("hobby", hobbyname);
-            List<PersonDTO> list = query.getResultList();
-            return list;
-        }finally{
-            em.close();
-        }
-    }
-    
     public List<PersonDTO> findPersonsWithGivenCity(String cityname){
         EntityManager em = getEntityManager();
         try{
@@ -160,6 +146,20 @@ public class PersonMapper {
                     + " inner join c2.cityinfo as c3"
                     + " where c3.city = :city", PersonDTO.class);
             query.setParameter("city", cityname);
+            List<PersonDTO> list = query.getResultList();
+            return list;
+        }finally{
+            em.close();
+        }
+    }
+    
+    public List<PersonDTO> findPersonsWithGivenHobby(String hobbyname){
+        EntityManager em = getEntityManager();
+        try{
+            TypedQuery<PersonDTO> query = em.createQuery("select new dto.PersonDTO(c1.id, c1.email, c1.firstName, c1.lastName)"
+                    + " from Person c1 inner join c1.hobbys as c2"
+                    + " where c2.name = :hobby", PersonDTO.class);
+            query.setParameter("hobby", hobbyname);
             List<PersonDTO> list = query.getResultList();
             return list;
         }finally{
