@@ -6,7 +6,9 @@
 package rest;
 
 import com.google.gson.Gson;
+import dto.CityInfoDTO;
 import dto.PersonDTO;
+import entity.CityInfo;
 import entity.Person;
 import java.util.List;
 import javax.persistence.Persistence;
@@ -47,4 +49,24 @@ public class PersonREST {
         
         return Response.ok(gson.toJson(person)).build();
     }
+    
+    @Path("allzip")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllZipCodes(){
+        List<CityInfoDTO> ziplist = m.getAllZipCodes();
+        
+        return Response.ok(gson.toJson(ziplist)).build();
+    }
+    
+    @Path("hobby/{hobby}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPersonAndCountWithGivenHobby(@PathParam("hobby") String hobby){
+        List<PersonDTO> person = m.findPersonsWithGivenHobby(hobby);
+        Long count = m.getCountOfPeopleWithGivenHobby(hobby);
+        
+        return Response.ok(gson.toJson(person)).build();
+    }
+
 }

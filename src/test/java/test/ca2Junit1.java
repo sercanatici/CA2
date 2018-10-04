@@ -5,6 +5,7 @@
  */
 package test;
 
+import dto.CityInfoDTO;
 import entity.CityInfo;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
@@ -31,8 +32,8 @@ public class ca2Junit1 {
     }
 
     @Test
-    public void testGetALlZipCodes() {
-        List<CityInfo> zip = pm.getAllZipCodes();
+    public void testGetALlZipCodes(){
+        List<CityInfoDTO> zip = pm.getAllZipCodes();
         int actual = zip.size();
         int expected = 1352;
         assertEquals(actual, expected);
