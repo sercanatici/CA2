@@ -91,25 +91,34 @@ public class PersonREST {
         return Response.ok(gson.toJson(person)).build();
     }
     
-    @Path("person/{firstname}/{lastname}/{email}")
+    @Path("person/{email}/{firstname}/{lastname}")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createPerson(@PathParam("firstname") String firstname, @PathParam("lastname") String lastname, @PathParam("email") String email){
+    public Response createPerson(@PathParam("email") String email, @PathParam("firstname") String firstname, @PathParam("lastname") String lastname){
         Person p = new Person(email, firstname, lastname);
         p = m.createPerson(p);
         return Response.ok(gson.toJson(p)).build();
     }
-
+    
+    @Path("person/update/{id}/{firstname}/{lastname}/{email}")
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updatePerson(@PathParam("id") int id, @PathParam("firstname") String firstname, @PathParam("lastname") String lastname, @PathParam("email") String email){
+        Person oldPerson = m.findPersonById(id);
+        Person newPerson = new Person(firstname, lastname, email);
+        
+        m.updatePerson(oldPerson, newPerson);
+        
+        return Response.ok(gson.toJson(newPerson)).build();
+    }
     
     @Path("person/delete/{number}")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deletePerson(@PathParam("number") int id){
+    public Response deletePerson(@PathParam("number") Long id){
 
-        Person p = m.findPersonById(id);
+        Person p = m.deletePersonById(id);
         
-        Person p1 = m.deletePerson(p);
-        
-        return Response.ok(gson.toJson(p1)).build();
+        return Response.ok().build();
     }
 }

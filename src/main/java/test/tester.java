@@ -53,7 +53,11 @@ public class tester {
         hlist1.add(new Hobby("Sailing", "Sailing"));
         hlist1.add(new Hobby("Coding", "Coding"));
         pm.createFullPerson(p1, a1, plist1, hlist1);
+        
+        long i = (long) 1;
+        //pm.deletePersonById(i);
 
+       // pm.updatePerson(p, p1);
     }
     
 }

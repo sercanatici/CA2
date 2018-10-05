@@ -33,7 +33,8 @@ function makeZipTable(data) {
 }
 
 function findPersonsWithHobby() {
-    var hobby = document.getElementById("value").value;
+    var hobby = document.getElementById("hobby").value;
+    document.getElementById("hobby").value = "";
     fetch("http://localhost:8084/mavenproject1/api/options/person/hobby/" + hobby)
             .then(res => handleHttpError(res))
             .then(data => {
@@ -87,7 +88,7 @@ function findAllPeople(){
             );
 }
 
-function makeAllPersonHeaer(){
+function makeAllPersonHeader(){
     return stringReturn = "<tr><th>Id</th><th>Firstname</th><th>Lastname</th><th>Email</th></tr>";
 }
 
@@ -104,6 +105,7 @@ function makeAllPersonTable(data){
 
 function findPerson() {
     var id = document.getElementById("findvalue").value;
+    document.getElementById("findvalue").value = "";
     fetch("http://localhost:8084/mavenproject1/api/options/person/" + id)
             .then(res => handleHttpError(res))
             .then(data => {
@@ -137,6 +139,10 @@ function createPerson(){
     var lastname = document.getElementById("lastname").value;
     var email = document.getElementById("email").value;
     
+    document.getElementById("firstname").value = "";
+    document.getElementById("lastname").value = "";
+    document.getElementById("email").value = "";
+    
     var newPerson = {
         firstName : firstname,
         lastName : lastname,
@@ -145,7 +151,7 @@ function createPerson(){
     
     var data = JSON.stringify(newPerson);
     console.log(data);
-   fetch("http://localhost:8084/mavenproject1/api/options/person/"+firstname+"/"+lastname+"/"+email, {
+   fetch("http://localhost:8084/mavenproject1/api/options/person/"+email+"/"+firstname+"/"+lastname, {
        method : "POST",
        headers : {
            "Accept" : "application/json",
@@ -184,7 +190,8 @@ function createdPerson(data){
 
 
 function deletePerson(){
-    var id = document.getElementById("id").value;
+    let id = document.getElementById("id").value;
+    document.getElementById("id").value = "";
     fetch("http://localhost:8084/mavenproject1/api/options/person/delete/"+ id, {
        method : "DELETE"
    })
@@ -206,6 +213,41 @@ function deletePerson(){
             );
 }
 
+function updatePerson(){
+    let id = document.getElementById("idupdate").value;
+    let newfirstname = document.getElementById("newfirstname").value;
+    let newlastname = document.getElementById("newlastname").value;
+    let newemail = document.getElementById("newemail").value;
+    
+    document.getElementById("idupdate").value = "";
+    document.getElementById("newfirstname").value = "";
+    document.getElementById("newlastname").value = "";
+    document.getElementById("newemail").value = "";
+    
+    let Url = "http://localhost:8084/mavenproject1/api/options/person/update/"+id+"/"+newemail+"/"+newfirstname+"/"+newlastname;
+    fetch(Url, {
+        method : "PUT"
+    })
+    .then(res => httpHandlerError(res))
+    .then(data => console.log(data))
+            .catch(err => {
+                if (err.httpError) {
+                    err.fullError.then(eJson => {
+                        console.log("Error: " + eJson.error);
+                        document.getElementById("tbody").innerHTML = eJson.error;
+                    });
+                } else {
+                    console.log("Netværksfejl");
+                }
+            }
+
+            );
+}
+
+function updateHeader(){
+    return stringReturn = "<tr><th>Id</th><th>Firstname</th><th>Lastname</th><th>Email</th></tr>";
+}
+
 
 function handleHttpError(res) {
     if (res.ok) {
@@ -215,6 +257,8 @@ function handleHttpError(res) {
     }
 }
 
+
+document.getElementById("update").addEventListener("click", updatePerson, false);
 document.getElementById("delete").addEventListener("click", deletePerson, false);
 document.getElementById("create").addEventListener("click", createPerson, false);
 document.getElementById("btnzip").addEventListener("click", getZip, false);

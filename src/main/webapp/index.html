@@ -20,7 +20,7 @@
            
             
             Get all Persons with a given Hobby:
-                <input id="value" type="text">
+                <input id="hobby" type="text">
                 <input  class="btn btn-default" type="button" onclick="findPersonsWithHobby()" value="Submit">
             
                 <br>
@@ -35,7 +35,7 @@
                 <br>
                 <br>
                 <form id="createform" >
-                Create Person:
+                Create Person -
                 Firstname:
                 <input id="firstname" type="text" required>
                 Lastname:
@@ -46,12 +46,22 @@
                 </form>
                 <br>
                 <br>
-                Update Person:
+                <form id="updateform">
+                Update Person -
+                Id:
+                <input id="idupdate" type="number" required>
+                New firstname:
+                <input id="newfirstname" type="text" required>
+                New lastname:
+                <input id="newlastname" type="text" required>
+                New email:
+                <input id="newemail" type="text" required>
+                <input  class="btn btn-default" id="update" type="button" value="Submit">
+                </form>
                 <br>
                 <br>
-                Delete Person:
                 <form id="deleteForm" >
-                Delete Person:
+                Delete Person -
                 Id:
                 <input id="id" type="number" required>
                 <input  class="btn btn-default" id="delete" type="button" value="submit">
