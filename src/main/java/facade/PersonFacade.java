@@ -80,7 +80,28 @@ public class PersonFacade {
             em.close();
         }
     }
-        
+    
+    public PersonDTO findFullPersonDTOById(int id){
+        EntityManager em = getEntityManager();
+        try{
+            TypedQuery<PersonDTO> query = em.createQuery("Select new dto.PersonDTO"
+                    + "(c.id,  c.email, c.firstName, c.lastName, c2.name, c2.description, c3.number, c3.description, c4.street, c4.additionalInfo, c5.zip, c5.city) "
+                    + "from Person c inner join c.hobbys as c2 inner join c.phones as c3 inner join c.address as c4 inner join c4.cityinfo as c5 "
+                    + "where c.id = :id", PersonDTO.class);
+            query.setParameter("id", id);
+            PersonDTO p = query.getSingleResult();
+            return p;
+        }finally{
+            em.close();
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     public Person findPersonById(int id){
         EntityManager em = getEntityManager();
         try{

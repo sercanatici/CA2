@@ -62,7 +62,7 @@ function makeHobbyHeader() {
 function makeHobbyTable(data) {
     let stringReturn = "";
     for (let i = 0; i < data.length; i++) {
-        stringReturn += "<tr><td>" + data[i].DTOid + "</td><td>" + data[i].DTOfirstName + "</td><td>" + data[i].DTOlastName + "</td><td>" + data[i].DTOemail + "</td></tr>";
+        stringReturn += "<tr><td>" + data[i].id + "</td><td>" + data[i].firstName + "</td><td>" + data[i].lastName + "</td><td>" + data[i].email + "</td></tr>";
     }
     return stringReturn;
 }
@@ -95,7 +95,7 @@ function makeAllPersonHeader() {
 function makeAllPersonTable(data) {
     let stringReturn = "";
     for (let i = 0; i < data.length; i++) {
-        stringReturn += "<tr><td>" + data[i].DTOid + "</td><td>" + data[i].DTOfirstName + "</td><td>" + data[i].DTOlastName + "</td><td>" + data[i].DTOemail + "</td></tr>";
+        stringReturn += "<tr><td>" + data[i].id + "</td><td>" + data[i].firstName + "</td><td>" + data[i].lastName + "</td><td>" + data[i].email + "</td></tr>";
     }
     return stringReturn;
 }
@@ -132,7 +132,7 @@ function makePersonHeader() {
 }
 
 function makePersonTable(data) {
-    return stringReturn = "<tr><td>" + data.DTOid + "</td><td>" + data.DTOfirstName + "</td><td>" + data.DTOlastName + "</td><td>" + data.DTOemail + "</td></tr>";
+    return stringReturn = "<tr><td>" + data.id + "</td><td>" + data.firstName + "</td><td>" + data.lastName + "</td><td>" + data.email + "</td></tr>";
 }
 
 function createPerson() {
