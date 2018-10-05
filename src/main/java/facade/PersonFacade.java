@@ -69,12 +69,12 @@ public class PersonFacade {
         return p;
     }
 
-    public List<PersonDTO> findPersonDTOById(int id) {
+    public PersonDTO findPersonDTOById(int id) {
         EntityManager em = getEntityManager();
         try {
             TypedQuery<PersonDTO> query = em.createQuery("Select new dto.PersonDTO(c.id, c.firstName, c.lastName, c.email) from Person c where c.id = :id", PersonDTO.class);
             query.setParameter("id", id);
-            List<PersonDTO> p = query.getResultList();
+            PersonDTO p = query.getSingleResult();
             return p;
         } finally {
             em.close();

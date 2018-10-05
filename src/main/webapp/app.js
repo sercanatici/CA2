@@ -6,10 +6,10 @@ function getZip() {
                 document.getElementById("thead").innerHTML = makeZipHeader();
             })
             .catch(err => {
+                console.log(err);
                 if (err.httpError) {
-                    err.fullError.then(eJson => {
-                        console.log("Error: " + eJson.error);
-                        document.getElementById("tbody").innerHTML = eJson.error;
+                    err.fullError.then(err => {
+                        console.log("Error: " + err.fullError);
                     });
                 } else {
                     console.log("Netværksfejl");
@@ -42,10 +42,10 @@ function findPersonsWithHobby() {
                 document.getElementById("thead").innerHTML = makeHobbyHeader();
             })
             .catch(err => {
+                console.log(err);
                 if (err.httpError) {
-                    err.fullError.then(eJson => {
-                        console.log("Error: " + eJson.error);
-                        document.getElementById("tbody").innerHTML = eJson.error;
+                    err.fullError.then(err => {
+                        console.log("Error: " + err.fullError);
                     });
                 } else {
                     console.log("Netværksfejl");
@@ -67,18 +67,18 @@ function makeHobbyTable(data) {
     return stringReturn;
 }
 
-function findAllPeople(){
+function findAllPeople() {
     fetch("http://localhost:8084/mavenproject1/api/options/person/all")
-    .then(res => handleHttpError(res))
+            .then(res => handleHttpError(res))
             .then(data => {
                 document.getElementById("tbody").innerHTML = makeAllPersonTable(data);
                 document.getElementById("thead").innerHTML = makeAllPersonHeader();
             })
             .catch(err => {
+                console.log(err);
                 if (err.httpError) {
-                    err.fullError.then(eJson => {
-                        console.log("Error: " + eJson.error);
-                        document.getElementById("tbody").innerHTML = eJson.error;
+                    err.fullError.then(err => {
+                        console.log("Error: " + err.fullError);
                     });
                 } else {
                     console.log("Netværksfejl");
@@ -88,11 +88,11 @@ function findAllPeople(){
             );
 }
 
-function makeAllPersonHeader(){
+function makeAllPersonHeader() {
     return stringReturn = "<tr><th>Id</th><th>Firstname</th><th>Lastname</th><th>Email</th></tr>";
 }
 
-function makeAllPersonTable(data){
+function makeAllPersonTable(data) {
     let stringReturn = "";
     for (let i = 0; i < data.length; i++) {
         stringReturn += "<tr><td>" + data[i].DTOid + "</td><td>" + data[i].DTOfirstName + "</td><td>" + data[i].DTOlastName + "</td><td>" + data[i].DTOemail + "</td></tr>";
@@ -109,14 +109,15 @@ function findPerson() {
     fetch("http://localhost:8084/mavenproject1/api/options/person/" + id)
             .then(res => handleHttpError(res))
             .then(data => {
+                console.log(data);
                 document.getElementById("tbody").innerHTML = makePersonTable(data);
                 document.getElementById("thead").innerHTML = makePersonHeader();
             })
             .catch(err => {
+                console.log(err);
                 if (err.httpError) {
-                    err.fullError.then(eJson => {
-                        console.log("Error: " + eJson.error);
-                        document.getElementById("tbody").innerHTML = eJson.error;
+                    err.fullError.then(err => {
+                        console.log("Error: " + err.fullError);
                     });
                 } else {
                     console.log("Netværksfejl");
@@ -126,50 +127,47 @@ function findPerson() {
             );
 }
 
-function makePersonHeader(){
+function makePersonHeader() {
     return stringReturn = "<th>Id</th><th>Firstname</th><th>Lastname</th><th>Email</th></tr>"
 }
 
-function makePersonTable(data){
-    return stringReturn = "<tr><td>" + data[0].DTOid + "</td><td>" + data[0].DTOfirstName + "</td><td>" + data[0].DTOlastName + "</td><td>" + data[0].DTOemail + "</td></tr>";
+function makePersonTable(data) {
+    return stringReturn = "<tr><td>" + data.DTOid + "</td><td>" + data.DTOfirstName + "</td><td>" + data.DTOlastName + "</td><td>" + data.DTOemail + "</td></tr>";
 }
 
-function createPerson(){
+function createPerson() {
     var firstname = document.getElementById("firstname").value;
     var lastname = document.getElementById("lastname").value;
     var email = document.getElementById("email").value;
-    
+
     document.getElementById("firstname").value = "";
     document.getElementById("lastname").value = "";
     document.getElementById("email").value = "";
-    
+
     var newPerson = {
-        firstName : firstname,
-        lastName : lastname,
-        email : email
+        firstName: firstname,
+        lastName: lastname,
+        email: email
     };
-    
+
     var data = JSON.stringify(newPerson);
-    console.log(data);
-   fetch("http://localhost:8084/mavenproject1/api/options/person/"+email+"/"+firstname+"/"+lastname, {
-       method : "POST",
-       headers : {
-           "Accept" : "application/json",
-           "Content-type" : "application/json"
-       },
-       body : data
-   })
-            .then(res => httpHandlerError(res))
+    fetch("http://localhost:8084/mavenproject1/api/options/person/" + email + "/" + firstname + "/" + lastname, {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-type": "application/json"
+        },
+        body: data
+    })
+            .then(res => handleHttpError(res))
             .then(data => {
                 console.log(data);
-                document.getElementById("tbody").innerHTML = createdPerson(data);
-                document.getElementById("thead").innerHTML = createdPersonHeader();
             })
             .catch(err => {
+                console.log(err);
                 if (err.httpError) {
-                    err.fullError.then(eJson => {
-                        console.log("Error: " + eJson.error);
-                        document.getElementById("tbody").innerHTML = eJson.error;
+                    err.fullError.then(err => {
+                        console.log("Error: " + err.fullError);
                     });
                 } else {
                     console.log("Netværksfejl");
@@ -177,33 +175,23 @@ function createPerson(){
             }
 
             );
-}   
-
-function createdPersonHeader(){
-    return stringReturn = "<tr><th>Id</th><th>Firstname</th><th>Lastname</th><th>Email</th></tr>";
 }
 
-function createdPerson(data){
-    console.log(data);
-    return stringReturn = "<tr><td>"+data.id+"</td><td>"+data.firstName+"</td><td>"+data.lastName+"</td><td>"+data.email+"</td></tr>";
-}
-
-
-function deletePerson(){
+function deletePerson() {
     let id = document.getElementById("id").value;
     document.getElementById("id").value = "";
-    fetch("http://localhost:8084/mavenproject1/api/options/person/delete/"+ id, {
-       method : "DELETE"
-   })
-            .then(res => httpHandlerError(res))
+    fetch("http://localhost:8084/mavenproject1/api/options/person/delete/" + id, {
+        method: "DELETE"
+    })
+            .then(res => handleHttpError(res))
             .then(data => {
-                console.log(data + "Deleted Successfully");
+                console.log(data + " Has Been Deleted Successfully");
             })
             .catch(err => {
+                console.log(err);
                 if (err.httpError) {
-                    err.fullError.then(eJson => {
-                        console.log("Error: " + eJson.error);
-                        document.getElementById("tbody").innerHTML = eJson.error;
+                    err.fullError.then(err => {
+                        console.log("Error: " + err.fullError);
                     });
                 } else {
                     console.log("Netværksfejl");
@@ -213,28 +201,28 @@ function deletePerson(){
             );
 }
 
-function updatePerson(){
+function updatePerson() {
     let id = document.getElementById("idupdate").value;
     let newfirstname = document.getElementById("newfirstname").value;
     let newlastname = document.getElementById("newlastname").value;
     let newemail = document.getElementById("newemail").value;
-    
+
     document.getElementById("idupdate").value = "";
     document.getElementById("newfirstname").value = "";
     document.getElementById("newlastname").value = "";
     document.getElementById("newemail").value = "";
-    
-    let Url = "http://localhost:8084/mavenproject1/api/options/person/update/"+id+"/"+newemail+"/"+newfirstname+"/"+newlastname;
+
+    let Url = "http://localhost:8084/mavenproject1/api/options/person/update/" + id + "/" + newemail + "/" + newfirstname + "/" + newlastname;
     fetch(Url, {
-        method : "PUT"
+        method: "PUT"
     })
-    .then(res => httpHandlerError(res))
-    .then(data => console.log(data))
+            .then(res => handleHttpError(res))
+            .then(data => console.log(data))
             .catch(err => {
+                console.log(err);
                 if (err.httpError) {
-                    err.fullError.then(eJson => {
-                        console.log("Error: " + eJson.error);
-                        document.getElementById("tbody").innerHTML = eJson.error;
+                    err.fullError.then(err => {
+                        console.log("Error: " + err.fullError);
                     });
                 } else {
                     console.log("Netværksfejl");
@@ -244,7 +232,7 @@ function updatePerson(){
             );
 }
 
-function updateHeader(){
+function updateHeader() {
     return stringReturn = "<tr><th>Id</th><th>Firstname</th><th>Lastname</th><th>Email</th></tr>";
 }
 

@@ -49,7 +49,9 @@ public class PersonREST {
     public Response getAllPeople(){
         List<PersonDTO> p = m.findAllPeople();
         
-        return Response.ok(gson.toJson(p)).build();
+        String json = gson.toJson(p);
+        
+        return Response.ok(json).build();
     }
     
     
@@ -58,9 +60,10 @@ public class PersonREST {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPersonById(@PathParam("id") int id){
-        List<PersonDTO> p = m.findPersonDTOById(id);
+        PersonDTO p = m.findPersonDTOById(id);
         
-        return Response.ok(gson.toJson(p)).build();
+        String json = gson.toJson(p);
+        return Response.ok(json).build();
     }
     
     @Path("phone/{number}")
@@ -70,7 +73,9 @@ public class PersonREST {
         
         List<PersonDTO> person = m.findPersonFromPhoneNumber(number);
         
-        return Response.ok(gson.toJson(person)).build();
+        String json = gson.toJson(person);
+        
+        return Response.ok(json).build();
     }
     
     @Path("zip/allzip")
@@ -79,7 +84,9 @@ public class PersonREST {
     public Response getAllZipCodes(){
         List<CityInfoDTO> ziplist = m.getAllZipCodes();
         
-        return Response.ok(gson.toJson(ziplist)).build();
+        String json = gson.toJson(ziplist);
+        
+        return Response.ok(json).build();
     }
     
     @Path("person/hobby/{hobby}")
@@ -88,7 +95,8 @@ public class PersonREST {
     public Response getPersonAndCountWithGivenHobby(@PathParam("hobby") String hobby){
         List<PersonDTO> person = m.findPersonsWithGivenHobby(hobby);
         
-        return Response.ok(gson.toJson(person)).build();
+        String json = gson.toJson(person);
+        return Response.ok(json).build();
     }
     
     @Path("person/{email}/{firstname}/{lastname}")
@@ -97,7 +105,8 @@ public class PersonREST {
     public Response createPerson(@PathParam("email") String email, @PathParam("firstname") String firstname, @PathParam("lastname") String lastname){
         Person p = new Person(email, firstname, lastname);
         p = m.createPerson(p);
-        return Response.ok(gson.toJson(p)).build();
+        String json = gson.toJson(p);
+        return Response.ok(json).build();
     }
     
     @Path("person/update/{id}/{firstname}/{lastname}/{email}")
@@ -109,7 +118,8 @@ public class PersonREST {
         
         m.updatePerson(oldPerson, newPerson);
         
-        return Response.ok(gson.toJson(newPerson)).build();
+        String json = gson.toJson(newPerson);
+        return Response.ok(json).build();
     }
     
     @Path("person/delete/{number}")
@@ -119,6 +129,7 @@ public class PersonREST {
 
         Person p = m.deletePersonById(id);
         
-        return Response.ok().build();
+        String json = gson.toJson(p);
+        return Response.ok(json).build();
     }
 }
