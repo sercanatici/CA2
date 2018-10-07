@@ -2,12 +2,14 @@ function getZip() {
     fetch("http://localhost:8084/mavenproject1/api/options/zip/allzip")
             .then(res => handleHttpError(res))
             .then(data => {
+                console.log("Data: " + data);
                 document.getElementById("tbody").innerHTML = makeZipTable(data);
                 document.getElementById("thead").innerHTML = makeZipHeader();
             })
             .catch(err => {
                 console.log("Error" + err);
-                document.getElementById("tbody").innerHTML = "No ZipCodes found in database";
+                document.getElementById("thead").innerHTML = "<h1>No ZipCodes found in database</h1>";
+                document.getElementById("tbody").innerHTML = "";
                 if (err.httpError) {
                     err.fullError.then(err => {
                         console.log("Error: " + err.fullError);
@@ -41,13 +43,16 @@ function findPersonsWithHobby() {
             .then(data => {
                 console.log("Data: " + data);
                 if(data.length === 0){
-                    document.getElementById("thead").innerHTML = "No people found in Database with chosen hobby";
+                    document.getElementById("thead").innerHTML = "<h1>No people found in Database with chosen hobby</h1>";
+                    document.getElementById("tbody").innerHTML = "";
                 } else {
                 document.getElementById("tbody").innerHTML = makeHobbyTable(data);
                 document.getElementById("thead").innerHTML = makeHobbyHeader();
             }})
             .catch(err => {
                 console.log("Error: " + err);
+                document.getElementById("thead").innerHTML = "<h1>No people found in Database</h1>";
+                document.getElementById("tbody").innerHTML = "";
                 if (err.httpError) {
                     err.fullError.then(err => {
                         console.log("Error: " + err.fullError);
@@ -76,11 +81,14 @@ function findAllPeople() {
     fetch("http://localhost:8084/mavenproject1/api/options/person/all")
             .then(res => handleHttpError(res))
             .then(data => {
+                console.log("Data: " + data);
                 document.getElementById("tbody").innerHTML = makeAllPersonTable(data);
                 document.getElementById("thead").innerHTML = makeAllPersonHeader();
             })
             .catch(err => {
-                console.log(err);
+                console.log("Error: " + err);
+                document.getElementById("thead").innerHTML = "No people found in database";
+                document.getElementById("tbody").innerHTML = "";
                 if (err.httpError) {
                     err.fullError.then(err => {
                         console.log("Error: " + err.fullError);
