@@ -39,11 +39,15 @@ function findPersonsWithHobby() {
     fetch("http://localhost:8084/mavenproject1/api/options/person/hobby/" + hobby)
             .then(res => handleHttpError(res))
             .then(data => {
+                console.log("Data: " + data);
+                if(data.length === 0){
+                    document.getElementById("thead").innerHTML = "No people found in Database with chosen hobby";
+                } else {
                 document.getElementById("tbody").innerHTML = makeHobbyTable(data);
                 document.getElementById("thead").innerHTML = makeHobbyHeader();
-            })
+            }})
             .catch(err => {
-                console.log(err);
+                console.log("Error: " + err);
                 if (err.httpError) {
                     err.fullError.then(err => {
                         console.log("Error: " + err.fullError);
