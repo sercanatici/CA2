@@ -122,12 +122,14 @@ function findPerson() {
     fetch("http://localhost:8084/mavenproject1/api/options/person/" + id)
             .then(res => handleHttpError(res))
             .then(data => {
-                console.log(data);
+                console.log("Data: " + data);
                 document.getElementById("tbody").innerHTML = makePersonTable(data);
                 document.getElementById("thead").innerHTML = makePersonHeader();
             })
             .catch(err => {
-                console.log(err);
+                console.log("Error: " + err);
+                document.getElementById("thead").innerHTML = "Person not found in database";
+                document.getElementById("tbody").innerHTML = "";
                 if (err.httpError) {
                     err.fullError.then(err => {
                         console.log("Error: " + err.fullError);
@@ -232,7 +234,9 @@ function updatePerson() {
             .then(res => handleHttpError(res))
             .then(data => console.log(data))
             .catch(err => {
-                console.log(err);
+                console.log("Error: " + err);
+                document.getElementById("thead").innerHTML = "<h1>No person found with chosen ID</h1>";
+                document.getElementById("tbody").innerHTML = "";
                 if (err.httpError) {
                     err.fullError.then(err => {
                         console.log("Error: " + err.fullError);
