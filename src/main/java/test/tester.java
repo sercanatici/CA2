@@ -42,6 +42,8 @@ public class tester {
         hlist.add(new Hobby("Fishing", "Fishing"));
         pm.createFullPerson(p, a, plist, hlist);
         
+        System.out.println(p.toString());
+        
         /*
         Person newPerson = new Person("New", "New", "New");
         pm.updatePerson(p, newPerson);
