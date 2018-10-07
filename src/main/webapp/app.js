@@ -2,17 +2,18 @@ function getZip() {
     fetch("http://localhost:8084/mavenproject1/api/options/zip/allzip")
             .then(res => handleHttpError(res))
             .then(data => {
-                document.getElementById("tbody").innerHTML = makeZipTable(data)
+                document.getElementById("tbody").innerHTML = makeZipTable(data);
                 document.getElementById("thead").innerHTML = makeZipHeader();
             })
             .catch(err => {
-                console.log(err);
+                console.log("Error" + err);
+                document.getElementById("tbody").innerHTML = "No ZipCodes found in database";
                 if (err.httpError) {
                     err.fullError.then(err => {
                         console.log("Error: " + err.fullError);
                     });
                 } else {
-                    console.log("Netværksfejl");
+                    console.log("Network Error");
                 }
             }
 
@@ -48,7 +49,7 @@ function findPersonsWithHobby() {
                         console.log("Error: " + err.fullError);
                     });
                 } else {
-                    console.log("Netværksfejl");
+                    console.log("Network Error");
                 }
             }
 
@@ -81,7 +82,7 @@ function findAllPeople() {
                         console.log("Error: " + err.fullError);
                     });
                 } else {
-                    console.log("Netværksfejl");
+                    console.log("Network Error");
                 }
             }
 
@@ -120,7 +121,7 @@ function findPerson() {
                         console.log("Error: " + err.fullError);
                     });
                 } else {
-                    console.log("Netværksfejl");
+                    console.log("Network Error");
                 }
             }
 
@@ -170,7 +171,7 @@ function createPerson() {
                         console.log("Error: " + err.fullError);
                     });
                 } else {
-                    console.log("Netværksfejl");
+                    console.log("Network Error");
                 }
             }
 
@@ -194,7 +195,7 @@ function deletePerson() {
                         console.log("Error: " + err.fullError);
                     });
                 } else {
-                    console.log("Netværksfejl");
+                    console.log("Network Error");
                 }
             }
 
@@ -225,7 +226,7 @@ function updatePerson() {
                         console.log("Error: " + err.fullError);
                     });
                 } else {
-                    console.log("Netværksfejl");
+                    console.log("Network Error");
                 }
             }
 
