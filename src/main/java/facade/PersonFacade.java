@@ -1,4 +1,4 @@
-package mapper;
+package facade;
 
 import dto.CityInfoDTO;
 import dto.PersonDTO;
@@ -14,11 +14,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-public class PersonMapper {
+public class PersonFacade {
 
     EntityManagerFactory emf;
 
-    public PersonMapper(EntityManagerFactory emf) {
+    public PersonFacade(EntityManagerFactory emf) {
         this.emf = emf;
     }
 
@@ -69,23 +69,73 @@ public class PersonMapper {
         return p;
     }
 
-    public Person findPersonById(int id) {
+    public PersonDTO findPersonDTOById(int id) {
         EntityManager em = getEntityManager();
         try {
-            Query query = em.createQuery("Select c from Person c where c.id = :id");
+            TypedQuery<PersonDTO> query = em.createQuery("Select new dto.PersonDTO(c.id, c.firstName, c.lastName, c.email) from Person c where c.id = :id", PersonDTO.class);
             query.setParameter("id", id);
-            Person p = (Person) query.getSingleResult();
+            PersonDTO p = query.getSingleResult();
             return p;
         } finally {
             em.close();
         }
     }
-
-    public Person deletePersonById(Person p) {
+    
+    public PersonDTO findFullPersonDTOById(int id){
         EntityManager em = getEntityManager();
+        try{
+            TypedQuery<PersonDTO> query = em.createQuery("Select new dto.PersonDTO"
+                    + "(c.id,  c.email, c.firstName, c.lastName, c2.name, c2.description, c3.number, c3.description, c4.street, c4.additionalInfo, c5.zip, c5.city) "
+                    + "from Person c inner join c.hobbys as c2 inner join c.phones as c3 inner join c.address as c4 inner join c4.cityinfo as c5 "
+                    + "where c.id = :id", PersonDTO.class);
+            query.setParameter("id", id);
+            PersonDTO p = query.getSingleResult();
+            return p;
+        }finally{
+            em.close();
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    public Person findPersonById(int id){
+        EntityManager em = getEntityManager();
+        try{
+            Query query = em.createQuery("Select c from Person c where c.id = :id");
+            query.setParameter("id", id);
+            Person p = (Person) query.getSingleResult();
+            return p;
+            
+            
+        }finally{
+            em.close();
+        }
+    }
+    
+    public List<PersonDTO> findAllPeople(){
+        EntityManager em = getEntityManager();
+        try{
+            TypedQuery<PersonDTO> query = em.createQuery("Select new dto.PersonDTO(c.id, c.firstName, c.lastName, c.email) from Person c", PersonDTO.class);
+            List<PersonDTO> list = query.getResultList();
+            return list;
+            
+        }finally{
+            em.close();
+        }
+    }
+    
+
+    public Person deletePersonById(long id) {
+        EntityManager em = getEntityManager();
+        Person p = null;
         try {
             em.getTransaction().begin();
-            em.remove(em.contains(p) ? p : em.merge(p));
+            p = em.find(Person.class, id);
+            em.remove(p);
             em.getTransaction().commit();
             return p;
 
@@ -155,7 +205,7 @@ public class PersonMapper {
     public List<PersonDTO> findPersonsWithGivenHobby(String hobbyname) {
         EntityManager em = getEntityManager();
         try {
-            TypedQuery<PersonDTO> query = em.createQuery("select new dto.PersonDTO(c1.id, c1.email, c1.firstName, c1.lastName)"
+            TypedQuery<PersonDTO> query = em.createQuery("select new dto.PersonDTO(c1.id, c1.firstName, c1.lastName, c1.email)"
                     + " from Person c1 inner join c1.hobbys as c2"
                     + " where c2.name = :hobby", PersonDTO.class);
             query.setParameter("hobby", hobbyname);

@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import mapper.PersonMapper;
+import facade.PersonFacade;
+import generator.DataGenerator;
 
 /**
  *
@@ -27,7 +28,8 @@ public class tester {
     public static void main(String[] args) {
         
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
-        
+
+ /*       
         PersonMapper pm = new PersonMapper(emf);
         
         Person p = new Person("email", "Tobias", "Jensen");
@@ -49,6 +51,9 @@ public class tester {
         pm.updatePerson(p, newPerson);
         */
         
+        PersonFacade pm = new PersonFacade(emf);
+        DataGenerator dg = new DataGenerator();
+        dg.Generator(10);
         
     }
     

@@ -20,10 +20,52 @@
            
             
             Get all Persons with a given Hobby:
-                <input id="value" type="text">
-                <input  class="btn btn-default" type="button" onclick="findPersonsWithHobby()" value="submit">
+                <input id="hobby" type="text">
+                <input  class="btn btn-default" type="button" onclick="findPersonsWithHobby()" value="Submit">
             
-               
+                <br>
+                <br>
+                Get all People in Database:
+                <input  class="btn btn-default" type="button" onclick="findAllPeople()" value="Submit">
+                <br>
+                <br>
+                Find Person by id:
+                <input id="findvalue" type="number">
+                <input  class="btn btn-default" type="button" onclick="findPerson()" value="Submit">
+                <br>
+                <br>
+                <form id="createform" >
+                Create Person -
+                Firstname:
+                <input id="firstname" type="text" required>
+                Lastname:
+                <input id="lastname" type="text" required>
+                Email:
+                <input id="email" type="text" required>
+                <input  class="btn btn-default" id="create" type="button" value="Submit">
+                </form>
+                <br>
+                <br>
+                <form id="updateform">
+                Update Person -
+                Id:
+                <input id="idupdate" type="number" required>
+                New firstname:
+                <input id="newfirstname" type="text" required>
+                New lastname:
+                <input id="newlastname" type="text" required>
+                New email:
+                <input id="newemail" type="text" required>
+                <input  class="btn btn-default" id="update" type="button" value="Submit">
+                </form>
+                <br>
+                <br>
+                <form id="deleteForm" >
+                Delete Person -
+                Id:
+                <input id="id" type="number" required>
+                <input  class="btn btn-default" id="delete" type="button" value="submit">
+                </form>
             
         <table id="tbl" class="table">
             <thead id="thead">
